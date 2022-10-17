@@ -90,15 +90,12 @@ const app = {
                 this.state.problemTimer--
                 console.log(this.state.problemTimer)
             } else {
-                this.stopProblemTimer();
+                this.state.problemTimer = 0;
             }
         }, 1000)    
     },
     stopGameTimer(){
         clearInterval(this.gameTimer)
-    },
-    stopProblemTimer(){
-        clearInterval(this.problemTimer)
     },
     resetProblemTimer(){
         this.state.problemTimer = 30;

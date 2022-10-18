@@ -22,17 +22,21 @@ const app = {
     setup() {
         this.confetti = new JSConfetti();
 
-        //        this.elements.input.addEventListener('keyup', (e) => this.evalAnswer(e))
-
         this.elements.keyboard.forEach(key => {
             key.addEventListener('click', (e) => {
-                if (e.target.innerText !== 'C' && this.state.answer.length < 3) {
+                if (e.target.innerText === 'C') {
+                    this.state.answer = '',
+                    this.render();
+                }
+                else if(this.state.answer.length && e.target.innerText === '<') {
+                    this.state.answer
+                    this.render();
+                } 
+                
+                else if( this.state.answer.length <= 3) {
                     this.state.answer += e.target.innerText;
                     this.render();
                     this.evalAnswer();
-                } else {
-                    this.state.answer = '',
-                        this.render();
                 }
             })
         })

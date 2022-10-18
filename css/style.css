@@ -6,11 +6,12 @@
 }
 :root {
     font-family: 'Fira Mono', monospace;
+    color: rgba(255,255,255,.8);
 }
 
 body {
     margin: 0;
-    background: pink;
+    background: #222;
 }
 
 main {
@@ -34,7 +35,7 @@ main > section > header {
 
 header > aside {
     padding: .5rem .75rem;
-    border: 2px solid #222;
+    border: 2px solid rgba(255,255,255,.8);;
     border-radius: .5rem;
 }
 
@@ -50,12 +51,21 @@ header > aside p {
 }
 */
 main > section .center-stage {
-    background-color: green;
+    background: linear-gradient(162.92deg, rgba(255, 0, 92, 0.3) 0%, rgba(255, 0, 92, 0) 99.34%), #193B64;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 5rem;
     height: 100vh;
+    transition: background .2s ease;
+}
+
+.center-stage.correct {
+    background: rgb(27, 127, 95);
+}
+
+.center-stage.wrong {
+    background: red;
 }
 
 main section > footer {
@@ -76,6 +86,7 @@ footer input[type="tel"] {
     padding: 0;
     background: none;
     border: none;
+    color: rgba(255,255,255,.8);
 }
 
 footer input[type="tel"]:focus {

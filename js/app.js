@@ -9,19 +9,26 @@ const app = {
         currentMathProblem: '3x5',
         factor: 3
     },
+    elements: {
+        stage: document.querySelector('.center-stage'),
+        input: document.querySelector('input[type="tel"'),
+        score: document.querySelector('.score'),
+        time: document.querySelector('.time')
+    },
     confetti: null,
     setup(){
         this.confetti = new JSConfetti();
-        const input = document.querySelector('input[type="tel"');
-        input.focus();
-        input.addEventListener('keyup', (e) => this.evalAnswer(e))
+
+        this.elements.input.focus();
+        this.elements.input.addEventListener('keyup', (e) => this.evalAnswer(e))
+        this.elements.stage.style.animationDuration = `30s`;
+        this.elements.stage.classList.add('active');
+
         const viewport = window.visualViewport;
         const footerHeight = document.querySelector('section > footer').offsetHeight;
 
-
-
         viewport.addEventListener('resize', () => {
-            document.querySelector('.center-stage').style.height = viewport.height - footerHeight;
+            this.elements.stage.style.height = viewport.height - footerHeight;
         })
     },
     render(){
@@ -30,10 +37,10 @@ const app = {
         document.querySelector(`section#${this.state.currentStage}`).style.display = 'flex';
 
         // update Clock
-        document.querySelector('.score').innerHTML = `${this.state.score}p`;
+        this.elements.score.innerHTML = `${this.state.score}p`;
         document.querySelector('.time').innerHTML = `<p>${this.state.currentTime}s</p>`;
     
-        document.querySelector('.center-stage').innerText = this.state.currentMathProblem;
+        this.elements.stage.innerText = this.state.currentMathProblem;
 
     },
     getMathProblem(){
@@ -43,7 +50,7 @@ const app = {
     gameTimer: null,
     problemTimer: null,
     evalAnswer(e){
-        const userAnswer = document.querySelector('input[type="tel"]').value;
+        const userAnswer = this.elements.input.value;
 
         console.info('Evaluation answer');
         
@@ -52,14 +59,20 @@ const app = {
         
         if(+userAnswer === correctAnswer){
             console.info('Corrent answer!');
-            this.confetti.addConfetti()
-            this.state.score =+ this.state.problemTimer;
+            this.confetti.addConfetti();
+            this.state.score += this.state.problemTimer;
+            this.elements.stage.classList.add('correct');
             this.resetProblemTimer()
             this.render()
-            document.querySelector('input').value = '';
+            setTimeout(() => {
+                this.elements.input.value = '';
+                this.elements.input.focus();
+
+            },250)
             
             setTimeout(() => {
-                this.getMathProblem()
+                this.elements.stage.classList.remove('correct');
+                this.getMathProblem();                
                 this.render();
             },1000)
 
@@ -71,18 +84,17 @@ const app = {
     startGameTimer(){
         this.gameTimer = setInterval(() => {
             if(this.state.gameTimer > 0){
-            this.state.gameTimer--
-            const minutes = Math.floor(this.state.gameTimer / 60);
-            const seconds = this.state.gameTimer - minutes * 60;
-            this.state.currentTime = `${minutes}.${seconds}`;
-            this.render();
-        } else {
-            this.stopTimer();
-            this.state.currentStage = 'game-over';
-            this.render();
-        }
+                this.state.gameTimer--
+                const minutes = Math.floor(this.state.gameTimer / 60);
+                const seconds = this.state.gameTimer - minutes * 60;
+                this.state.currentTime = `${minutes}.${seconds}`;
+                this.render();
+            } else {
+                this.stopTimer();
+                this.state.currentStage = 'game-over';
+                this.render();
+            }
         }, 1000)
-        
     },
     startProblemTimer(){
         this.problemTimer = setInterval(() => {

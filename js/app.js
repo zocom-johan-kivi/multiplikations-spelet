@@ -65,9 +65,9 @@ const app = {
     },
     gameTimer: null,
     problemTimer: null,
-    evalAnswer(e) {
+    evalAnswer() {
 
-        console.info('Evaluation answer');
+        console.info('Evaluating answer...');
 
         const converted = this.state.currentMathProblem.replace('x', '*');
         const correctAnswer = eval(converted);
@@ -90,8 +90,8 @@ const app = {
             }, 1000)
 
         } else {
-            console.info('Wrong answer!');
             // no win
+            console.info('Wrong answer.');
         }
     },
     startGameTimer() {

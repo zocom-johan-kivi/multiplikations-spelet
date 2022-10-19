@@ -11,12 +11,12 @@ const app = {
         factor: 3
     },
     elements: {
+        keyboard: document.querySelectorAll('.keyboard > .num'),
         problem: document.querySelector('.problem'),
         answer: document.querySelector('.answer'),
         stage: document.querySelector('.center-stage'),
         score: document.querySelector('.score'),
-        time: document.querySelector('.time'),
-        keyboard: document.querySelectorAll('.keyboard > .num')
+        time: document.querySelector('.time')
     },
     confetti: null,
     setup() {

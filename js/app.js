@@ -16,7 +16,8 @@ const app = {
         answer: document.querySelector('.answer'),
         stage: document.querySelector('.center-stage'),
         score: document.querySelector('.score'),
-        time: document.querySelector('.time')
+        time: document.querySelector('.time'),
+        body : document.querySelector('body')
     },
     confetti: null,
     setup() {
@@ -31,7 +32,7 @@ const app = {
                     this.state.answer
                     this.render();
                 } 
-                else (this.state.answer.length <= 3) {
+                else if (this.state.answer.length <= 3) {
                     this.state.answer += e.target.innerText;
                     this.render();
                     this.evalAnswer();
@@ -76,7 +77,7 @@ const app = {
             console.info('Corrent answer!');
             this.confetti.addConfetti();
             this.state.score += this.state.problemTimer;
-            this.elements.stage.classList.add('correct');
+            this.elements.body.classList.add('correct');
             this.resetProblemTimer()
             setTimeout(() => {
                 this.state.answer = '';
@@ -84,7 +85,7 @@ const app = {
             }, 500)
 
             setTimeout(() => {
-                this.elements.stage.classList.remove('correct');
+                this.elements.body.classList.remove('correct');
                 this.getMathProblem();
                 this.render();
             }, 1000)

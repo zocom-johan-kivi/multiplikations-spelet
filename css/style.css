@@ -47,7 +47,7 @@ main>section .center-stage {
     transition: background .2s ease;
 }
 
-.center-stage.correct {
+body.correct {
     background: rgb(27, 127, 95);
 }
 

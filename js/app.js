@@ -21,7 +21,6 @@ const app = {
     confetti: null,
     setup() {
         this.confetti = new JSConfetti();
-
         this.elements.keyboard.forEach(key => {
             key.addEventListener('click', (e) => {
                 if (e.target.innerText === 'C') {
@@ -32,8 +31,7 @@ const app = {
                     this.state.answer
                     this.render();
                 } 
-                
-                else if( this.state.answer.length <= 3) {
+                else (this.state.answer.length <= 3) {
                     this.state.answer += e.target.innerText;
                     this.render();
                     this.evalAnswer();

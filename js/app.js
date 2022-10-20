@@ -64,12 +64,12 @@ const app = {
                 }
             })
         })
-        
+
+        // Viewport
         const viewport = window.visualViewport;
-        const footerHeight = document.querySelector('section > footer').offsetHeight;
 
         viewport.addEventListener('resize', () => {
-            this.elements.stage.style.height = viewport.height - footerHeight;
+            this.elements.body.style.height = viewport.height;
         })
     },
     render() {

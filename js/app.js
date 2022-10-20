@@ -11,14 +11,15 @@ const app = {
         factor: 3
     },
     elements: {
+        tableBtns: document.querySelectorAll('.tables button'),
         keyboard: document.querySelectorAll('.keyboard > .num'),
         problem: document.querySelector('.problem'),
+        results: document.querySelector('.results'),
         answer: document.querySelector('.answer'),
         stage: document.querySelector('.center-stage'),
         score: document.querySelector('.score'),
         time: document.querySelector('.time'),
-        body : document.querySelector('body'),
-        tableBtns: document.querySelectorAll('.tables button')
+        body: document.querySelector('body')
     },
     confetti: null,
     setup() {
@@ -82,6 +83,8 @@ const app = {
 
         this.elements.problem.innerText = this.state.currentMathProblem;
         this.elements.answer.innerText = this.state.answer;
+
+        this.elements.results.innerHTML = `Du fick <strong>${this.state.score}p</strong>, bra jobbat!`
 
     },
     getMathProblem() {

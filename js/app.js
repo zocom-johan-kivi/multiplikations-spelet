@@ -1,7 +1,7 @@
 
 const app = {
     state: {
-        currentStage: 'game',
+        currentStage: 'settings',
         score: 0,
         currentTime: '3.00',
         problemTimer: 30,
@@ -17,11 +17,33 @@ const app = {
         stage: document.querySelector('.center-stage'),
         score: document.querySelector('.score'),
         time: document.querySelector('.time'),
-        body : document.querySelector('body')
+        body : document.querySelector('body'),
+        tableBtns: document.querySelectorAll('.tables button')
     },
     confetti: null,
     setup() {
         this.confetti = new JSConfetti();
+        // desktop
+        window.addEventListener('keyup', (e) => {
+            if(!isNaN(+e.key)){
+                this.state.answer += +e.key
+                this.render()
+                this.evalAnswer()
+            }
+            if(e.key === 'Backspace'){
+                this.state.answer = this.state.answer.slice(0, -1);
+                this.render()
+            }
+        })
+
+        // Settings
+        this.elements.tableBtns.forEach(btn => btn.addEventListener('click', (e) => {
+            this.state.factor = +e.target.innerText;
+            this.state.currentStage = 'game';
+            this.getMathProblem();
+            this.render();
+        }))
+        // Game
         this.elements.keyboard.forEach(key => {
             key.addEventListener('click', (e) => {
                 if (e.target.innerText === 'C') {
@@ -51,7 +73,6 @@ const app = {
         // show container
         document.querySelectorAll('main > section').forEach(el => el.style.display = 'none');
         document.querySelector(`section#${this.state.currentStage}`).style.display = 'flex';
-
 
         this.elements.score.innerHTML = `${this.state.score}p`;
         this.elements.time.innerHTML = `<p>${this.state.currentTime}s</p>`;

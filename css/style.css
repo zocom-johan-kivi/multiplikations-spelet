@@ -13,6 +13,7 @@
 body {
     margin: 0;
     background: linear-gradient(162.92deg, rgba(255, 0, 92, 0.3) 0%, rgba(255, 0, 92, 0) 99.34%), #193B64;
+    transition: background .2s ease;
 }
 
 main {
@@ -104,11 +105,12 @@ main section>footer .keyboard {
 .clear, .blank {
     background: none !important;
     box-shadow: 0 0 0 0.0 !important;
-    color: rgba(255,255,255,.4);
+    color: rgba(255,255,255,.8);
 }
 
 .clear:active {
-    color: rgba(255, 255, 255, .8);
+    color: rgba(255, 255, 255, 1);
+    font-size: 1.4rem;
 }
 
 .keyboard .num:active {
@@ -120,6 +122,26 @@ main section>footer .keyboard {
 #settings {
     padding: 2rem;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+#settings .instructions {
+    background: #d5a114;
+    max-width: 800px;
+    display: flex;
+    margin: 2rem auto;
+    flex-direction: column;
+    color: #222;
+    line-height: 140%;
+    letter-spacing: 100%;
+    border-radius: 2px;
+    box-shadow: 0 0 3rem rgba(0, 0, 0,.4);
+}
+
+.instructions h2 {
+    margin-bottom: 1rem;
 }
 
 #settings .tables {
@@ -143,4 +165,64 @@ main section>footer .keyboard {
 .tables button:active {
     color: #222;
     background-color: white;
+}
+
+#game-over {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#reset {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    appearance: none;
+    padding: .75rem 1rem;
+    border: none;
+    background: none;
+    color:rgba(255, 255, 255, .6);
+    border-radius: .5rem;
+    transition: .1s ease;
+}
+
+#reset:hover {
+    cursor: pointer;
+    color:rgba(255, 255, 255, 1);
+    background-color: #c74343;
+    
+}
+
+@media screen and (min-width: 1025px) {
+    
+    #settings .tables {
+        max-width: 800px; 
+        margin: auto;       
+    }
+
+    .tables button {
+        width: 8rem;
+        height: 8rem;
+        transition: all .2s ease;
+    }
+
+    .tables button:hover {
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, .6);
+    }
+
+    .center-stage .problem {
+        font-size: 10rem;
+    }
+
+    .center-stage .answer {
+        font-size: 4rem;
+        opacity: .8;
+        height: 6rem;
+    }
+
+    #game .keyboard {
+        display: none;
+    }
+
 }

@@ -18,7 +18,10 @@
 <body>
     <main id="app">
         <section id="settings">
-            <h2 class="instructions">Välj tabell nedan.</h2>
+            <header class="instructions">
+                <h2>Välj tabell nedan.</h2>
+                <p>För varje rätt svar får du poäng. Ju snabbare du svarar, desto högre poäng (max 30p / tal). Samla ihop så många poäng som möjligt på <em>3 minuter</em>.</p>
+            </header>
             <section class="tables">
                 <button>1</button>
                 <button>2</button>
@@ -32,7 +35,6 @@
                 <button>10</button>
             </section>
         </section>
-        <section id="get-ready"></section>
         <section id="game">
             <header>
                 <aside class="score">0p</aside>
@@ -61,9 +63,10 @@
         </section>
         <section id="game-over">
             <h1>Game Over</h1>
-            <p></p>
+            <p class="results"></p>
+            <ul class="toplist"></ul>
         </section>
-
+        <button id="reset">Starta om spel</button>
     </main>
     <script src="js/app.js"></script>
 </body>

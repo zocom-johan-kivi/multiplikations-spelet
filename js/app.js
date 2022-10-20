@@ -42,7 +42,10 @@ const app = {
             this.state.currentStage = 'game';
             this.getMathProblem();
             this.render();
+            app.startGameTimer();
+            app.startProblemTimer();
         }))
+        
         // Game
         this.elements.keyboard.forEach(key => {
             key.addEventListener('click', (e) => {
@@ -61,7 +64,7 @@ const app = {
                 }
             })
         })
-
+        
         const viewport = window.visualViewport;
         const footerHeight = document.querySelector('section > footer').offsetHeight;
 
@@ -155,5 +158,3 @@ const app = {
 
 app.setup();
 app.render();
-app.startGameTimer()
-app.startProblemTimer()

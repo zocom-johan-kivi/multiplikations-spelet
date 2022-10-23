@@ -1,7 +1,7 @@
 
 const app = {
     state: {
-        currentStage: 'game-over',
+        currentStage: 'settings',
         score: 0,
         active: false,
         currentTime: '2.00',
@@ -76,7 +76,15 @@ const app = {
 
         // Game over
         this.elements.gameOver.classList.remove('hugo-b');
+        
         this.elements.restart.addEventListener('click', () => {
+            this.state.score = 0;
+            this.state.currentStage = 'settings';
+            this.render();
+        })
+
+        // restart
+        this.elements.reset.addEventListener('click', () => {
             this.state.score = 0;
             this.state.currentStage = 'settings';
             this.render();

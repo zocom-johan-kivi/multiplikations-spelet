@@ -1,23 +1,27 @@
 
 const app = {
     state: {
-        currentStage: 'settings',
+        currentStage: 'game-over',
         score: 0,
-        currentTime: '3.00',
+        active: false,
+        currentTime: '2.00',
         problemTimer: 30,
-        gameTimer: 180,
+        gameTimer: 120,
         currentMathProblem: '3x5',
         answer: '',
         factor: 3
     },
     elements: {
         tableBtns: document.querySelectorAll('.tables button'),
+        gameOver: document.querySelector('#game-over'),
         keyboard: document.querySelectorAll('.keyboard > .num'),
         problem: document.querySelector('.problem'),
+        restart: document.querySelector('#restart'),
         results: document.querySelector('.results'),
         answer: document.querySelector('.answer'),
         stage: document.querySelector('.center-stage'),
         score: document.querySelector('.score'),
+        reset: document.querySelector('#reset'),
         time: document.querySelector('.time'),
         body: document.querySelector('body')
     },
@@ -27,9 +31,11 @@ const app = {
         // desktop
         window.addEventListener('keyup', (e) => {
             if(!isNaN(+e.key)){
-                this.state.answer += +e.key
-                this.render()
-                this.evalAnswer()
+                if(!this.state.active){
+                    this.state.answer += +e.key
+                    this.render()
+                    this.evalAnswer()
+                }
             }
             if(e.key === 'Backspace'){
                 this.state.answer = this.state.answer.slice(0, -1);
@@ -59,11 +65,21 @@ const app = {
                     this.render();
                 } 
                 else if (this.state.answer.length <= 3) {
-                    this.state.answer += e.target.innerText;
-                    this.render();
-                    this.evalAnswer();
+                    if(!this.state.active){
+                        this.state.answer += e.target.innerText;
+                        this.render();
+                        this.evalAnswer();
+                    }
                 }
             })
+        })
+
+        // Game over
+        this.elements.gameOver.classList.remove('hugo-b');
+        this.elements.restart.addEventListener('click', () => {
+            this.state.score = 0;
+            this.state.currentStage = 'settings';
+            this.render();
         })
 
         // Viewport
@@ -81,7 +97,7 @@ const app = {
         this.elements.score.innerHTML = `${this.state.score}p`;
         this.elements.time.innerHTML = `<p>${this.state.currentTime}s</p>`;
 
-        this.elements.problem.innerText = this.state.currentMathProblem;
+        this.elements.problem.innerHTML = `<span>${this.state.currentMathProblem}</span>`;
         this.elements.answer.innerText = this.state.answer;
 
         this.elements.results.innerHTML = `Du fick <strong>${this.state.score}p</strong>, bra jobbat!`
@@ -102,20 +118,22 @@ const app = {
 
         if (+this.state.answer === correctAnswer) {
             console.info('Corrent answer!');
+            this.state.active = true; // prevent double clicks 
             this.confetti.addConfetti();
             this.state.score += this.state.problemTimer;
             this.elements.body.classList.add('correct');
             this.resetProblemTimer()
             setTimeout(() => {
                 this.state.answer = '';
+                this.state.active = false;
                 this.render()
-            }, 500)
+            }, 300)
 
             setTimeout(() => {
                 this.elements.body.classList.remove('correct');
                 this.getMathProblem();
                 this.render();
-            }, 1000)
+            }, 600)
 
         } else {
             // no win
@@ -132,6 +150,11 @@ const app = {
                 this.render();
             } else {
                 this.stopGameTimer();
+
+                if(this.state.score > 1000){
+                    this.elements.gameOver.classList.remove('hugo-b');
+                }
+
                 this.state.currentStage = 'game-over';
                 this.render();
             }
@@ -154,7 +177,7 @@ const app = {
         this.state.problemTimer = 30;
     },
     resetGameTimer() {
-        this.state.currentTime = '3.00'
+        this.state.currentTime = '2.00'
         this.state.gameTimer = 180;
     }
 }

@@ -20,7 +20,7 @@
         <section id="settings">
             <header class="instructions">
                 <h2>Välj tabell nedan.</h2>
-                <p>För varje rätt svar får du poäng. Ju snabbare du svarar, desto högre poäng (max 30p / tal). Samla ihop så många poäng som möjligt på <em>3 minuter</em>.</p>
+                <p>För varje rätt svar får du poäng. Ju snabbare du svarar, desto högre poäng (max 30p / tal). Samla ihop så många poäng som möjligt på <em>2 minuter</em>.</p>
             </header>
             <section class="tables">
                 <button>1</button>
@@ -41,7 +41,7 @@
                 <aside class="time">30s</aside>
             </header>
             <section class="center-stage">
-                <article class="problem">3x3</article>
+                <article class="problem"><span>3x3</span></article>
                 <article class="answer">33</article>
                 <button id="reset">Starta om spel</button>
             </section>
@@ -62,10 +62,10 @@
                 </section>
             </footer>
         </section>
-        <section id="game-over">
-            <h1>Game Over</h1>
+        <section id="game-over" class="hugo-a">
+            <h1>Spelet är över!</h1>
             <p class="results"></p>
-            <ul class="toplist"></ul>
+            <button id="restart">Starta en ny omgång</button>
         </section>
 
     </main>

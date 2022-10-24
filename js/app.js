@@ -4,6 +4,7 @@ const app = {
         currentStage: 'settings',
         score: 0,
         active: false,
+        problemNo: 0,
         currentTime: '2.00',
         problemTimer: 30,
         gameTimer: 120,
@@ -16,19 +17,19 @@ const app = {
         gameOver: document.querySelector('#game-over'),
         keyboard: document.querySelectorAll('.keyboard > .num'),
         problem: document.querySelector('.problem'),
-        restart: document.querySelector('#restart'),
         results: document.querySelector('.results'),
         answer: document.querySelector('.answer'),
         stage: document.querySelector('.center-stage'),
         score: document.querySelector('.score'),
-        reset: document.querySelector('#reset'),
+        reset: document.querySelectorAll('.reset'),
         time: document.querySelector('.time'),
         body: document.querySelector('body')
     },
     confetti: null,
     setup() {
         this.confetti = new JSConfetti();
-        // desktop
+        
+        // desktop key events
         window.addEventListener('keyup', (e) => {
             if(!isNaN(+e.key)){
                 if(!this.state.active){
@@ -75,19 +76,19 @@ const app = {
         })
 
         // Game over
+        this.elements.gameOver.classList.add('hugo-a');
         this.elements.gameOver.classList.remove('hugo-b');
         
-        this.elements.restart.addEventListener('click', () => {
-            this.state.score = 0;
-            this.state.currentStage = 'settings';
-            this.render();
-        })
-
-        // restart
-        this.elements.reset.addEventListener('click', () => {
-            this.state.score = 0;
-            this.state.currentStage = 'settings';
-            this.render();
+        // reset
+        this.elements.reset.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.state.score = 0;
+                this.state.currentStage = 'settings';
+                this.stopGameTimer();
+                this.resetGameTimer();
+                this.state.problemNo = 0;
+                this.render();
+            })
         })
 
         // Viewport
@@ -126,6 +127,7 @@ const app = {
 
         if (+this.state.answer === correctAnswer) {
             console.info('Corrent answer!');
+            this.state.problemNo++
             this.state.active = true; // prevent double clicks 
             this.confetti.addConfetti();
             this.state.score += this.state.problemTimer;
@@ -159,8 +161,11 @@ const app = {
             } else {
                 this.stopGameTimer();
 
-                if(this.state.score > 1000){
-                    this.elements.gameOver.classList.remove('hugo-b');
+                const avgHighScore = this.state.problemNo * (30 / 2);
+
+                if(this.state.score > avgHighScore){
+                    this.elements.gameOver.classList.remove('hugo-a');
+                    this.elements.gameOver.classList.add('hugo-b');
                 }
 
                 this.state.currentStage = 'game-over';
@@ -168,7 +173,7 @@ const app = {
             }
         }, 1000)
     },
-    startProblemTimer() {
+    start() {
         this.problemTimer = setInterval(() => {
             if (this.state.problemTimer > 0) {
                 this.state.problemTimer--

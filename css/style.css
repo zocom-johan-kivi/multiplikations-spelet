@@ -192,7 +192,7 @@ main section>footer .keyboard {
     font-size: 1.5rem;
 }
 
-#game-over button {
+#game-over button#game-reset {
     margin-top: 2rem;
     appearance: none;
     padding: 1rem 2rem;
@@ -227,8 +227,7 @@ main section>footer .keyboard {
     background-position: center bottom;
 }
 
-#reset {
-    display: none;
+button#reset {
     position: fixed;
     bottom: 1rem;
     left: 1rem;
@@ -241,7 +240,7 @@ main section>footer .keyboard {
     transition: .1s ease;
 }
 
-#reset:hover {
+button#reset:hover {
     cursor: pointer;
     color:rgba(255, 255, 255, 1);
     background-color: #c74343;

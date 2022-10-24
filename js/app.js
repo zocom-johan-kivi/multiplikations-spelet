@@ -49,9 +49,9 @@ const app = {
             this.state.factor = +e.target.innerText;
             this.state.currentStage = 'game';
             this.getMathProblem();
+            this.startGameTimer();
+            this.startProblemTimer();
             this.render();
-            app.startGameTimer();
-            app.startProblemTimer();
         }))
         
         // Game
@@ -143,7 +143,7 @@ const app = {
                 this.elements.body.classList.remove('correct');
                 this.getMathProblem();
                 this.render();
-            }, 600)
+            }, 300)
 
         } else {
             // no win
@@ -173,7 +173,7 @@ const app = {
             }
         }, 1000)
     },
-    start() {
+    startProblemTimer() {
         this.problemTimer = setInterval(() => {
             if (this.state.problemTimer > 0) {
                 this.state.problemTimer--
